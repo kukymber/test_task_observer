@@ -1,5 +1,10 @@
 from db.engine import db, app
 
-if __name__ == '__main__':
-    db.create_all()
-    app.run(debug=True)
+
+try:
+    with app.app_context():
+        db.create_all()
+except Exception as e:
+    print(f"Ошибка при создании таблиц: {e}")
+
+app.run(debug=True)
